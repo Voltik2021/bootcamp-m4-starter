@@ -31,3 +31,19 @@
     opacity: 0.9;
     transition: all 0.2s linear;
 }
+
+@media (min-width: 375px) and (max-width: 834px) {
+
+    .favorites {        
+        box-sizing: border-box;        
+      
+    }
+
+    .favorites__list {
+        margin-bottom: 24px;
+        overflow-y: scroll;
+        height: 100px;
+        border: 1px solid black;
+    }
+    
+}

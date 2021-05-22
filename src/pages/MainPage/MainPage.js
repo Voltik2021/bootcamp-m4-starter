@@ -91,12 +91,14 @@ class MainPage extends Component {
                          requestGeneration = {this.requestGeneration}
                          del = {this.del}
                          />  
-                        <div>
+                        <div className = 'divSaveList'>
                             <p>Мои списки:{this.state.dataSaveList.length === 0?'  не созданны':null}</p>
-                        {this.state.dataSaveList.map(item =>   <Link className = "Linkbr" onClick = {() => this.props.getIDMove(item.id)} 
+                        {this.state.dataSaveList.map(item =>   <Link className = "Linkbr"  
                                                                     to = {`/list/${item.id}`} 
-                                                                    key={item.id}>{item.title}
-                                                                </Link>)}  
+                                                                    key={item.id}
+                                                                    >
+                                                                        {item.title}
+                                                                </Link>)} 
                         </div>                  
                     </aside>
                 

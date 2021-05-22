@@ -1,18 +1,31 @@
 import React, { Component } from 'react';
 import './ListPage.css';
 import {renderingList} from '../../components/APIservice';
-import { Link} from 'react-router-dom';
+import { Link,} from 'react-router-dom';
+import {getSelectMovieList} from '../../components/APIservice'
+
 
 class ListPage extends Component {
-    state = {
+    state = {       
         movies: null
        }
 
-    componentDidUpdate(prevProps) {
-        if (prevProps !== this.props){
-            renderingList(this.props.movies.movies).then(data => this.setState({movies: data}))
-        }        
-    }
+       componentDidMount() {
+        let params = this.props.match.params.id;
+        console.log(params)
+            getSelectMovieList(params).then((data) => {
+                renderingList(data.movies).then(dates => this.setState({movies:dates}))
+             })
+        }
+       
+
+       
+
+    // componentDidUpdate(prevProps) {
+    //     if (prevProps !== this.props){
+    //         renderingList(this.props.movies.movies).then(data => this.setState({movies: data}))
+    //     }        
+    // }
 
     render() { 
         let {movies} = this.state
@@ -20,7 +33,7 @@ class ListPage extends Component {
             <div className="list-page"> 
                 <Link to = '/'>Вернутся на главную</Link>
                 <h1 className="list-page__title">Мой список</h1>
-                {console.log(movies)}
+                {/* {console.log(movies)} */}
                 <ul>
                     {movies&&movies.map((item) => {
                         return (
