@@ -14,9 +14,7 @@ export function creatingMovieList(arr, title) {
         method: 'POST',
         headers: { 'Content-type': 'application/json' },
         body: JSON.stringify(info)
-    }).then(response => response.json());
-
-  
+    }).then(response => response.json());  
 }
 
 export function getSelectMovieList(id){
@@ -26,8 +24,7 @@ export function getSelectMovieList(id){
 
 export function GetListIDMovies() {
     return fetch(`http://www.omdbapi.com/?apikey=1ce064a1&i=tt3896198`)
-         .then(response => response.json()).then(data => console.log(data))
-         
+         .then(response => response.json()).then(data => console.log(data))         
  }
 
 
@@ -36,7 +33,3 @@ export function GetListIDMovies() {
     return Promise.all(arrObj)
  }
  
-//  "tt0076759"
-// 1: "tt0080684"
-// 2: "tt0086190"
-// 3: "tt2488496"

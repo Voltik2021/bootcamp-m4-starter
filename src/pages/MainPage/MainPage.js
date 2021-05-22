@@ -21,8 +21,20 @@ class MainPage extends Component {
 
     movieRequest = (e) => {        
         e.preventDefault()        
-        GetListMovies(this.state.searchMovies).then(data => this.setState({listMove:data.Search}))
-        
+        GetListMovies(this.state.searchMovies).then((data) => {                
+            if (Array.isArray(data.Search)) {        
+                let fix = '';
+                let fdate = data.Search.filter((item) => {
+                    if (item.imdbID !== fix) {
+                        fix = item.imdbID 
+                        return item
+                    }                               
+                })
+                this.setState({listMove:fdate})
+            } else {
+                alert('Нет таких фильмов')
+            }
+        })
     }
 
     addToList = (id) => {
@@ -37,6 +49,7 @@ class MainPage extends Component {
         this.setState({selectedListMovis:newListMovies})
         }        
     }
+
     del = (id) =>{
         let newArr = this.state.selectedListMovis.filter((item) => { return item.imdbID !== id})
         this.setState({selectedListMovis: newArr})
@@ -47,7 +60,10 @@ class MainPage extends Component {
 
         creatingMovieList(arr, this.state.titleNewList).then((data) => {
             let arrSelectMuv = [...this.state.dataSaveList, data]
-            this.setState({dataSaveList:arrSelectMuv})})
+            this.setState({dataSaveList:arrSelectMuv})
+        })        
+        let emptyArray = []
+        this.setState({selectedListMovis:emptyArray})
     }
 
     getTatle = (e) => {
@@ -75,10 +91,13 @@ class MainPage extends Component {
                          requestGeneration = {this.requestGeneration}
                          del = {this.del}
                          />  
-                         {this.state.dataSaveList.map(item =>   <Link onClick = {() => this.props.getIDMove(item.id)} 
+                        <div>
+                            <p>Мои списки:{this.state.dataSaveList.length === 0?'  не созданны':null}</p>
+                        {this.state.dataSaveList.map(item =>   <Link className = "Linkbr" onClick = {() => this.props.getIDMove(item.id)} 
                                                                     to = {`/list/${item.id}`} 
                                                                     key={item.id}>{item.title}
-                                                                </Link>)}                    
+                                                                </Link>)}  
+                        </div>                  
                     </aside>
                 
                 </main>
