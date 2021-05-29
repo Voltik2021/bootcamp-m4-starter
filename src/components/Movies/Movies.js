@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import MovieItem from '../MovieItem/MovieItem';
 import './Movies.css';
+import {connect} from 'react-redux';
 
 class Movies extends Component {  
     
@@ -17,4 +18,4 @@ class Movies extends Component {
     }
 }
  
-export default Movies;
+export default connect(mapStateToProps, mapDispatchToProps)(Movies);

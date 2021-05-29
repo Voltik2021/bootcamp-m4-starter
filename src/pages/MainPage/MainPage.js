@@ -17,25 +17,7 @@ class MainPage extends Component {
     }
     changeMovies = (e) => {             
         this.setState({searchMovies:e.target.value})
-    }
-
-    movieRequest = (e) => {        
-        e.preventDefault()        
-        GetListMovies(this.state.searchMovies).then((data) => {                
-            if (Array.isArray(data.Search)) {        
-                let fix = '';
-                let fdate = data.Search.filter((item) => {
-                    if (item.imdbID !== fix) {
-                        fix = item.imdbID 
-                        return item
-                    }                               
-                })
-                this.setState({listMove:fdate})
-            } else {
-                alert('Нет таких фильмов')
-            }
-        })
-    }
+    }    
 
     addToList = (id) => {
         let Movies = this.state.listMove.find((item) => {
@@ -79,7 +61,7 @@ class MainPage extends Component {
                 <main className="main-page__content">
                     <section className="main-page__main-section">
                         <div className="main-page__search-box">
-                            <SearchBox searchMovies = {this.state.searchMovies} changeMovies = {this.changeMovies} movieRequest = {this.movieRequest}/>
+                            <SearchBox  changeMovies = {this.changeMovies} movieRequest = {this.movieRequest}/>
                         </div>
                         <div className="main-page__movies">
                             <Movies listMove = {this.state.listMove} addToList = {this.addToList}/>
@@ -96,6 +78,7 @@ class MainPage extends Component {
                         {this.state.dataSaveList.map(item =>   <Link className = "Linkbr"  
                                                                     to = {`/list/${item.id}`} 
                                                                     key={item.id}
+                                                                    target="_blank"
                                                                     >
                                                                         {item.title}
                                                                 </Link>)} 
