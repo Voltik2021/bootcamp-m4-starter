@@ -10,12 +10,18 @@ class Movies extends Component {
             <ul className="movies">                         
                 {this.props.listMove.map((movie) => (
                     <li className="movies__item" key={movie.imdbID}>
-                        <MovieItem {...movie} addToList = {this.props.addToList}/>                        
+                        <MovieItem {...movie} />                        
                     </li>
                 ))}
             </ul>
         );
     }
 }
- 
-export default connect(mapStateToProps, mapDispatchToProps)(Movies);
+
+
+ let mapStateToProps = (state) => {
+     return {
+        listMove:state.listMove
+     }
+ }
+export default connect(mapStateToProps, null)(Movies);

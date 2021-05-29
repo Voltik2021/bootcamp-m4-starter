@@ -8,7 +8,7 @@ export function GetListMovies(nameMovies) {
 export function creatingMovieList(arr, title) {
     let info = {
         title: title,
-        movies: arr
+        movies: arr.map((item) => item.imdbID)
     }    
     return fetch('https://acb-api.algoritmika.org/api/movies/list', {
         method: 'POST',

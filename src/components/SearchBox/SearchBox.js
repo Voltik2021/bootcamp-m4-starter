@@ -59,8 +59,7 @@ let mapDispatchToProps = (dispatch) => {
     movieRequest: (e, name) => {dispatch(getMoviesList(e, name))}    
     }
 }
-let mapStateToProps = (state) => {
-    console.log(state)
+let mapStateToProps = (state) => {    
     return {
         nameMovie:state.searchMovies        
     }
