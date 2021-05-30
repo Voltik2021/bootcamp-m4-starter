@@ -1,39 +1,22 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './SearchBox.css';
-import {connect} from "react-redux";
+import {useSelector, useDispatch} from "react-redux";
 import {getValueImput, getMoviesList} from '../../redax/action'
-// import {GetListMovies, getMoviesList} from '../APIservice';
 
 
-class SearchBox extends Component {    
-    
-    // movieRequest = (e) => {        
-    //     e.preventDefault()        
-    //     GetListMovies(this.state.searchMovies).then((data) => {                
-    //         if (Array.isArray(data.Search)) {        
-    //             let fix = '';
-    //             let fdate = data.Search.filter((item) => {
-    //                 if (item.imdbID !== fix) {
-    //                     fix = item.imdbID 
-    //                     return item
-    //                 }                               
-    //             })
-    //             this.setState({listMove:fdate})
-    //         } else {
-    //             alert('Нет таких фильмов')
-    //         }
-    //     })
-    // }
-    render() {       
+
+export default function SearchBox() {   
+    let state = useSelector(state => state) 
+    let dispatch = useDispatch()            
         return (
             <div className="search-box">
-                <form className="search-box__form" onSubmit={(e) => this.props.movieRequest(e, this.props.nameMovie)}>
+                <form className="search-box__form" onSubmit={(e) => dispatch(getMoviesList(e, state.searchMovies))}>
                     <label className="search-box__form-label">
                         Искать фильм по названию:
                         <input
-                            onChange = {(e) => this.props.getValue(e.target.value)}
+                            onChange = {(e) => dispatch(getValueImput(e.target.value))}
                             name = 'nameMuv'
-                            value={this.props.nameMovie}
+                            value={state.searchMovies}
                             type="text"
                             className="search-box__form-input"
                             placeholder="Например, Shawshank Redemption"                          
@@ -42,26 +25,24 @@ class SearchBox extends Component {
                     <button
                         type="submit"
                         className="search-box__form-submit"
-                        disabled={!this.props.nameMovie}
+                        disabled={!state.searchMovies}
                         >
                         Искать
                     </button>
-                </form>
-                
+                </form>                
             </div>
-        );
-    }
+        );   
 }
 
-let mapDispatchToProps = (dispatch) => {
-    return {
-    getValue: (value) => {dispatch(getValueImput(value))},
-    movieRequest: (e, name) => {dispatch(getMoviesList(e, name))}    
-    }
-}
-let mapStateToProps = (state) => {    
-    return {
-        nameMovie:state.searchMovies        
-    }
-} 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchBox);
+// let mapDispatchToProps = (dispatch) => {    
+//     return {
+//     getValue: (value) => {dispatch(getValueImput(value))},
+//     movieRequest: (e, name) => {dispatch(getMoviesList(e, name))}    
+//     }
+// }
+// let mapStateToProps = (state) => {   
+//          return {
+//         nameMovie:state.searchMovies        
+//     }
+// } 
+// export default connect(mapStateToProps, mapDispatchToProps)(SearchBox);

@@ -1,27 +1,26 @@
-import React, { Component } from 'react';
+import React from 'react';
 import MovieItem from '../MovieItem/MovieItem';
 import './Movies.css';
-import {connect} from 'react-redux';
+import {useSelector} from 'react-redux';
 
-class Movies extends Component {  
+export default function Movies() {  
+   let state =useSelector(state => state);           
+    return ( 
+        <ul className="movies">                         
+            {state.listMove.map((movie) => (
+                <li className="movies__item" key={movie.imdbID}>
+                    <MovieItem {...movie} />                        
+                </li>
+            ))}
+        </ul>
+    );
     
-    render() {        
-        return ( 
-            <ul className="movies">                         
-                {this.props.listMove.map((movie) => (
-                    <li className="movies__item" key={movie.imdbID}>
-                        <MovieItem {...movie} />                        
-                    </li>
-                ))}
-            </ul>
-        );
-    }
 }
 
 
- let mapStateToProps = (state) => {
-     return {
-        listMove:state.listMove
-     }
- }
-export default connect(mapStateToProps, null)(Movies);
+//  let mapStateToProps = (state) => {
+//      return {
+//         listMove:state.listMove
+//      }
+//  }
+// export default connect(mapStateToProps, null)(Movies);
